@@ -1,2 +1,2 @@
 # placemark_Svelte
-Placmark App implemented in Svelte
+Placemark App implemented in Svelte
