@@ -14,6 +14,7 @@ export const placemarkService = {
                     email: email,
                     token: response.data.token
                 });
+                localStorage.placemark = JSON.stringify({email: email, token: response.data.token })
                 return true;
             }
             return false;
@@ -29,6 +30,7 @@ export const placemarkService = {
             token: "",
         });
         axios.defaults.headers.common["Authorization"] = "";
+        localStorage.removeItem("placemark");
     },
 
     async signup(firstName, lastName, email, password) {
