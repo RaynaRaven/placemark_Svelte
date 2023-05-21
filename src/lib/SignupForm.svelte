@@ -1,14 +1,21 @@
 <script>
     import { goto } from "$app/navigation";
+    import { placemarkService } from "../services/placemark-service.js";
 
     let firstName = "";
     let lastName = "";
     let email = "";
     let password = "";
+    let errorMessage = "";
 
     async function signup() {
         console.log(`attempting to sign up email: ${email}`);
-        goto('/login');
+        let success = await placemarkService.signup(firstName, lastName, email, password);
+        if (success) {
+            goto("/login");
+        } else {
+         errorMessage = "Error trying to sign up";
+        }
     }
 </script>
 
@@ -37,3 +44,8 @@
         <button class="button is-link">Sign Up</button>
     </div>
 </form>
+{#if errorMessage}
+    <div class="section">
+        {errorMessage}
+    </div>
+{/if}
