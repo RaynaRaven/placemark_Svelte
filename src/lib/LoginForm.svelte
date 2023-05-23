@@ -1,4 +1,4 @@
-<script>
+<script xmlns="http://www.w3.org/1999/html">
     import { goto } from '$app/navigation';
     import { placemarkService } from "../services/placemark-service.js";
 
@@ -21,13 +21,22 @@
 
 <form on:submit|preventDefault={login}>
     <div class="field">
-        <label class="label" for="email">Email</label>
-        <input bind:value={email} class="input" id="email" name="email" placeholder="Enter email" type="text" />
+        <p class="control has-icons-left">
+            <input bind:value={email} class="input" id="email" name="email" placeholder="Email" type="email" />
+                <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                </span>
+        </p>
     </div>
     <div class="field">
-        <label class="label" for="password">Password</label>
-        <input bind:value={password} class="input" id="password" name="password" placeholder="Enter Password" type="password" />
+        <p class="control has-icons-left">
+            <input bind:value={password} class="input" id="password" name="password" placeholder="Enter Password" type="password" />
+                <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                </span>
+        </p>
     </div>
+
     <div class="field is-grouped">
         <button class="button is-link">Log In</button>
     </div>
