@@ -1,8 +1,29 @@
 <script>
+    import { onMount} from "svelte";
+    import { placemarkService } from "../services/placemark-service.js";
+
+    let userObj = null ;
+
     let categoryName = "";
 
+    let message = "";
+
+
+    // onMount(async () => {
+    //     const userId = await placemarkService.getUserId(email)
+    //
+    // })
+
     async function addCategory() {
-        console.log(`attempting to add category: ${categoryName}`);
+        // if (categoryName){
+        //     const category = {
+        //         name: categoryName
+        //     }
+        // } else {
+        //     message = "Please enter category name"
+        // }
+
+         console.log(`attempting to add category: ${categoryName}`);
     }
 </script>
 
@@ -15,5 +36,6 @@
             </div>
         </div>
     </div>
-    <button class="button is-link">Add Category</button>
+    <div class="title-is-3" style="color: firebrick"> {message} <br><br></div>
+    <button class="button is-link is-light">Add Category</button>
 </form>

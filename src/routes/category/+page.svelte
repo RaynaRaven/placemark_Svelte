@@ -12,6 +12,5 @@
     <h1 class="title is-4">Locations</h1>
     <div class="column box">
         <LocationList />
-        <LocationForm />
     </div>
 </section>

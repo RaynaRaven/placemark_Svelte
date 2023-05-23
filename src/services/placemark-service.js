@@ -1,6 +1,7 @@
 // @ts-nocheck
 import axios from "axios";
 import { user } from "../stores.js";
+import {local} from "svelte-check";
 
 export const placemarkService = {
     baseUrl: "http://localhost:4000",
@@ -45,6 +46,77 @@ export const placemarkService = {
             return true;
         } catch (error) {
             return false;
+        }
+    },
+
+    async getUserId() {
+        try{
+            const email = localStorage.placemark.email;
+            console.log(email);
+            const response = await axios.get(this.baseUrl + "/api/users/", email);
+            if (response.data.success) {
+                return response.data._id
+            }
+        } catch (error) {
+            return "false";
+        }
+    },
+
+    async addLocation(location) {
+        try {
+            const response = await axios.post(this.baseUrl + "/api/categories/" + location.categoryId + "/locations", location);
+            return response.status == 200;
+        } catch (error) {
+            return false;
+        }
+    },
+
+    async getCategoriesByUserId() {
+        try {
+            // const token = localStorage.placemark.token;
+            // const headers = {
+            //     Authorization: `Bearer ${token}`
+            // };
+            //const response = await axios.get(this.baseUrl + "/api/categories", { headers });
+            const id = await this.getUserId();
+            if (id && id!== "false") {
+                console.log(id);
+                const response = await axios.get(this.baseUrl + "/api/categories", id );
+                console.log(response);
+                return response.data;
+            }
+        } catch (error) {
+            return false;
+        }
+    },
+
+    async getCandidates() {
+        try {
+            const response = await axios.get(this.baseUrl + "/api/candidates");
+            return response.data;
+        } catch (error) {
+            return [];
+        }
+    },
+
+    async getLocations() {
+        try {
+            const response = await axios.get(this.baseUrl + "/api/locations");
+            return response.data;
+        } catch (error) {
+            return [];
+        }
+    },
+
+    reload() {
+        const placemarkCredentials = localStorage.placemark;
+        if (placemarkCredentials) {
+            const savedUser = JSON.parse(placemarkCredentials);
+            user.set({
+                email: savedUser.email,
+                token: savedUser.token
+            });
+            axios.defaults.headers.common["Authorization"] = "Bearer " + savedUser.token;
         }
     }
 };

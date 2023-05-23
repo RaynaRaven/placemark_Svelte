@@ -3,15 +3,20 @@
     import CategoryForm from "$lib/CategoryForm.svelte";
     import CategoryList from "$lib/CategoryList.svelte";
     import MainNavigator from "$lib/MainNavigator.svelte";
+    import LocationForm from "$lib/LocationForm.svelte";
 </script>
 
 <Header>
     <MainNavigator />
 </Header>
-<section class="section">
+<section class="column box">
     <h1 class="title is-4">POI Dashboard</h1>
-    <div class="column box">
+    <div>
         <CategoryList />
         <CategoryForm />
+        <br><br>
+    </div>
+    <div >
+        <LocationForm />
     </div>
 </section>

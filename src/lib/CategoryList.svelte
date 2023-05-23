@@ -1,3 +1,19 @@
-<div class="column box has-text-centered">
-    <h1 class="title is-4">Placeholder: Categories listed here</h1>
+<script>
+    import { onMount } from "svelte";
+    import { placemarkService } from "../services/placemark-service.js";
+
+    let categoryList = [];
+
+    // onMount(async () => {
+    //     categoryList = await placemarkService.getCategor();
+    // });
+
+</script>
+
+<div>
+    {#each categoryList as category}
+        <div class="column box has-text-centered">
+            { category.name }
+        </div>
+    {/each}
 </div>
