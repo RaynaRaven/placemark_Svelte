@@ -4,9 +4,9 @@
 
     let categoryList = [];
 
-    // onMount(async () => {
-    //     categoryList = await placemarkService.getCategor();
-    // });
+    onMount(async () => {
+        categoryList = await placemarkService.getCategories();
+    });
 
 </script>
 

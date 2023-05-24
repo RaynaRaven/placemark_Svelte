@@ -8,23 +8,18 @@
 
     let message = "";
 
-
-    // onMount(async () => {
-    //     const userId = await placemarkService.getUserId(email)
-    //
-    // })
-
     async function addCategory() {
-        // if (categoryName){
-        //     const category = {
-        //         name: categoryName
-        //     }
-        // } else {
-        //     message = "Please enter category name"
-        // }
-
-         console.log(`attempting to add category: ${categoryName}`);
+        if (!categoryName){
+            message = "Please enter category name"
+            return
+        }
+        const category = {
+            name: categoryName
+        }
+        await placemarkService.addCategory(category);
+        // console.log(`attempting to add category: ${categoryName}`);
     }
+
 </script>
 
 <form on:submit|preventDefault={addCategory}>

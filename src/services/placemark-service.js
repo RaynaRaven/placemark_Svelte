@@ -1,7 +1,6 @@
 // @ts-nocheck
 import axios from "axios";
 import { user } from "../stores.js";
-import {local} from "svelte-check";
 
 export const placemarkService = {
     baseUrl: "http://localhost:4000",
@@ -71,20 +70,10 @@ export const placemarkService = {
         }
     },
 
-    async getCategoriesByUserId() {
+    async getCategories() {
         try {
-            // const token = localStorage.placemark.token;
-            // const headers = {
-            //     Authorization: `Bearer ${token}`
-            // };
-            //const response = await axios.get(this.baseUrl + "/api/categories", { headers });
-            const id = await this.getUserId();
-            if (id && id!== "false") {
-                console.log(id);
-                const response = await axios.get(this.baseUrl + "/api/categories", id );
-                console.log(response);
-                return response.data;
-            }
+            const response = await axios.get(this.baseUrl + "/api/categories");
+            return response.data;
         } catch (error) {
             return false;
         }
@@ -98,6 +87,16 @@ export const placemarkService = {
             return [];
         }
     },
+
+    async addCategory(category) {
+        try {
+            const response = await axios.post(this.baseUrl + "/api/categories", category)
+            return response.status == 200;
+        } catch (error){
+            return false;
+        }
+    },
+
 
     async getLocations() {
         try {
