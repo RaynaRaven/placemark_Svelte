@@ -29,7 +29,6 @@
             name: categoryName
         }
         let success = await placemarkService.addCategory(category);
-        // console.log(`attempting to add category: ${categoryName}`);
         if (!success) {
             message = "some error occurred. Please try again"
         } else {
@@ -39,8 +38,6 @@
     }
 
     async function openCategory() {
-        console.log("IDDDDDDD", categoryId);
-
         await goto('/category');
     }
 

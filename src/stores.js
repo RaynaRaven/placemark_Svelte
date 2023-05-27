@@ -8,3 +8,10 @@ export const user = writable({
 export const categoryIdStore = writable( {
     categoryId: "",
 });
+
+export const locationStore = writable(
+    {
+        locationId: "",
+        locationName: "",
+    }
+)
