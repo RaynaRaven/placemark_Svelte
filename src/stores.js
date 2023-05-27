@@ -4,3 +4,7 @@ export const user = writable({
     email: "",
     token: "",
 });
+
+export const categoryIdStore = writable( {
+    categoryId: "",
+});

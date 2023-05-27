@@ -1,5 +1,6 @@
 <script>
-    import { onMount } from "svelte";
+    // @ts-nocheck
+    import { onMount, afterUpdate } from "svelte";
     import { placemarkService } from "../services/placemark-service.js";
 
     let categoryList = [];
@@ -17,26 +18,31 @@
         // console.log(categoryList);
     })
 
+    afterUpdate(async () => {
+        console.log(categoryList);
+    })
+
     async function addLocation() {
-        if (locationName && selectedCategory) {
-            const categoryName = selectedCategory;
-            const category = categoryList.find((category) => category.name === categoryName )
-            const location = {
-                name: locationName,
-                description: description,
-                latitude: latitude,
-                longitude: longitude,
-                category: category._id
-            };
-            const success = placemarkService.addLocation(location);
-            if (!success){
-                message = "error - location not added";
-                return;
-            }
-            message = `you have added ${locationName} to ${categoryName}`;
-        } else {
+        if (!locationName || !selectedCategory) {
             message = " Please select category and enter location names"
         }
+        const categoryName = selectedCategory;
+        console.log("categoryName: ", categoryName);
+        const category = categoryList.find((category) => category.name === categoryName );
+        console.log("Cat found!!!", category, category._id);
+        const location = {
+            name: locationName,
+            description: description,
+            latitude: latitude,
+            longitude: longitude,
+            categoryId: category._id
+        };
+        const success = await placemarkService.addLocation(location);
+        if (!success){
+                message = "error - location not added";
+                return;
+        }
+        message = `you have added ${locationName} to ${categoryName}`;
         // let locationName;
         // console.log(`attempting to add location: ${locationName}`);
     }
@@ -56,7 +62,7 @@
                 <div class="select">
                     <select bind:value={selectedCategory} id="selectedCategory">
                         {#each categoryList as category}
-                            <option> {category.name} </option>
+                            <option value={category.name}> {category.name} </option>
                         {/each}
                     </select>
                 </div>

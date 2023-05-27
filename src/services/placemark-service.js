@@ -63,7 +63,7 @@ export const placemarkService = {
 
     async addLocation(location) {
         try {
-            const response = await axios.post(this.baseUrl + "/api/categories/" + location.categoryId + "/locations", location);
+            const response = await axios.post(this.baseUrl + "/api/categories/" + location.category + "/locations", location);
             return response.status == 200;
         } catch (error) {
             return false;
@@ -79,28 +79,23 @@ export const placemarkService = {
         }
     },
 
-    async getCandidates() {
-        try {
-            const response = await axios.get(this.baseUrl + "/api/candidates");
-            return response.data;
-        } catch (error) {
-            return [];
-        }
-    },
 
     async addCategory(category) {
         try {
-            const response = await axios.post(this.baseUrl + "/api/categories", category)
-            return response.status == 200;
-        } catch (error){
+            const response = await axios.post(this.baseUrl + "/api/categories", category);
+            // console.log("HI", response.data);
+            if (response){
+                return true;
+            }
+        } catch (error) {
             return false;
         }
     },
 
-
-    async getLocations() {
+    async getLocationsByCategoryId(categoryId) {
+        // console.log("req1", categoryId);
         try {
-            const response = await axios.get(this.baseUrl + "/api/locations");
+            const response = await axios.get(this.baseUrl + "/api/locations", {params: {categoryId }, });
             return response.data;
         } catch (error) {
             return [];

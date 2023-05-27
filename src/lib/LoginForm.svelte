@@ -11,7 +11,7 @@
         let success = await placemarkService.login(email, password);
         if (success) {
             goto('/dashboard');
-    } else {
+        } else {
             email = "";
             password = "";
             errorMessage = "Invalid Credentials";

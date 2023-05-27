@@ -1,11 +1,24 @@
 <script>
     import { onMount } from "svelte";
     import { placemarkService } from "../services/placemark-service.js";
+    import { categoryIdStore } from "../stores.js";
 
-    let locationList = [];
+    let locationList=[];
+
     onMount(async () => {
-        locationList = await placemarkService.getLocations();
+        const { subscribe } = categoryIdStore;
+        let categoryId;
+        const unsubscribe = subscribe((value) => {
+            categoryId = value.categoryId;
+        });
+        console.log("LOC VAR", categoryId);
+
+        locationList = await placemarkService.getLocationsByCategoryId(categoryId);
+        // console.log("LocList", locationList);
+        unsubscribe();
     });
+
+
 </script>
 
 <div class="column box has-text-centered">
