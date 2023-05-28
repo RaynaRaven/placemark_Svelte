@@ -13,7 +13,7 @@ export const placemarkService = {
                 user.set({
                     email: email,
                     token: response.data.token,
-                    _id: response.data.id
+                    _id: response.data._id
                 });
                 localStorage.placemark = JSON.stringify({email: email, token: response.data.token })
                 return true;
