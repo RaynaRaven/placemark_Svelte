@@ -1,6 +1,6 @@
 // @ts-nocheck
 import axios from "axios";
-import { user } from "../stores.js";
+import { user, latestLocation } from "../stores.js";
 
 export const placemarkService = {
     baseUrl: "http://localhost:4000",
@@ -68,7 +68,7 @@ export const placemarkService = {
     async addLocation(location) {
         try {
             const response = await axios.post(this.baseUrl + "/api/categories/" + location.categoryId + "/locations", location);
-            console.log("add resp", response);
+            latestLocation.set(location);
             if (response){
                 return true;
             }

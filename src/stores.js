@@ -16,3 +16,5 @@ export const locationStore = writable(
         locationName: "",
     }
 )
+
+export const latestLocation= writable(null);

@@ -41,6 +41,7 @@
         } else {
             message = "error - location not added";
         }
+        categoryList=categoryList;
     }
 
 </script>

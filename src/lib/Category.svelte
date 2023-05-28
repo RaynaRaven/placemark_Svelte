@@ -2,7 +2,6 @@
     // @ts-nocheck
     import { onMount, afterUpdate } from "svelte";
     import { placemarkService } from "../services/placemark-service.js";
-    import { goto } from '$app/navigation';
     import { user, categoryIdStore } from "../stores.js";
 
 
@@ -10,7 +9,6 @@
     let message = "";
 
     let categoryList = [];
-    // export let categoryId = "";
 
     onMount(async () => {
         categoryList = await placemarkService.getCategories();
@@ -37,10 +35,6 @@
         }
     }
 
-    // async function openCategory() {
-    //     // await goto(`/category/${categoryId}/locations`);
-    //     goto("/category")
-    // }
 
     async function deleteCategory(categoryId) {
         const category = {
