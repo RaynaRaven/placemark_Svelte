@@ -6,8 +6,6 @@
     import { onMount } from "svelte";
     import { placemarkService } from "../services/placemark-service.js";
 
-
-
     onMount(async () => {
         const mapConfig = {
             location: { lat: 52.160858, lng: -7.15242 },

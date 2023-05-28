@@ -10,12 +10,14 @@ export const placemarkService = {
             const response = await axios.post(`${this.baseUrl}/api/users/authenticate`, { email, password });
             axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.token;
             if (response.data.success) {
+                console.log("AUTH RESP", response.data)
                 user.set({
+                    _id: response.data._id,
                     email: email,
                     token: response.data.token,
-                    _id: response.data._id
+
                 });
-                localStorage.placemark = JSON.stringify({email: email, token: response.data.token })
+                localStorage.placemark = JSON.stringify({email: email, token: response.data.token, _id: response.data._id})
                 return true;
             }
             return false;
@@ -26,11 +28,12 @@ export const placemarkService = {
     },
 
     async logout() {
+        axios.defaults.headers.common["Authorization"] = "";
         user.set({
+            _id: "",
             email: "",
             token: "",
         });
-        axios.defaults.headers.common["Authorization"] = "";
         localStorage.clear();
     },
 
