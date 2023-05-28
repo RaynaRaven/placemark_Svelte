@@ -4,8 +4,6 @@
     import MainNavigator from "$lib/MainNavigator.svelte";
     import LocationForm from "$lib/LocationForm.svelte";
     import Map from "$lib/Map.svelte";
-
-    export const ssr = false;
 </script>
 
 <Header>
