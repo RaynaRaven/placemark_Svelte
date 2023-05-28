@@ -38,11 +38,13 @@
             categoryId: category._id
         };
         const success = await placemarkService.addLocation(location);
-        if (!success){
-                message = "error - location not added";
-                return;
+        console.log("what is in Success??", success);
+        if (success) {
+            message = `you have added ${location.name} to ${category.name}`;
+        } else {
+            message = "error - location not added";
+            return;
         }
-        message = `you have added ${locationName} to ${categoryName}`;
         // let locationName;
         // console.log(`attempting to add location: ${locationName}`);
     }

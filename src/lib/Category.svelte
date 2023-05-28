@@ -39,7 +39,22 @@
     }
 
     async function openCategory() {
-        await goto('/category');
+        // await goto(`/category/${categoryId}/locations`);
+        goto("/category")
+    }
+
+    async function deleteCategory() {
+        const category = {
+            id: categoryId
+        }
+        //TODO event handler "are you sure?"
+        let success = await placemarkService.deleteCategory(category);
+        if (!success) {
+            console.log("Cat not deleted");
+        } else {
+            message = `Category Deleted`;
+            categoryList = await placemarkService.getCategories();
+        }
     }
 
 
@@ -58,7 +73,8 @@
                             categoryId: category._id
                             })}
                             on:click|preventDefault={openCategory} class="button is-link is-light"><i class="fas fa-folder-open"></i></button>
-                    <button class="button is-link is-light"><i class="fas fa-trash"></i></button>
+                    <button on:click={() => categoryId = category._id}
+                            on:click={deleteCategory} class="button is-link is-light"><i class="fas fa-trash"></i></button>
                 </div>
             </div>
         </div>

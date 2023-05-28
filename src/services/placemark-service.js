@@ -103,6 +103,19 @@ export const placemarkService = {
         }
     },
 
+    async deleteCategory(category){
+        try {
+            console.log("BEFORE REQ", category);
+            const response = await axios.delete(this.baseUrl + `/api/categories/${category.id}`, category);
+            if (response) {
+                return true;
+            }
+        } catch (error) {
+                console.log(error);
+
+        }
+    },
+
     async getLocationsByCategoryId(categoryId) {
         // console.log("req1", categoryId);
         try {
