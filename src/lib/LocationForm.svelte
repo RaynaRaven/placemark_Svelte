@@ -51,28 +51,28 @@
 
 <form on:submit|preventDefault={addLocation}>
     <div class="subtitle" > <b>Add a location</b> <br> </div>
-    <div class="field is-horizontal">
         <div class="field-body">
             <div class="field" >
                 <label for="locationName" class="label">Location Name</label>
                 <input bind:value={locationName} id="LocationName" class="input" type="text" placeholder="Enter location name" name="locationName" />
             </div>
+        </div>
+        <div class="field-body">
             <div class="field">
-                <label for="selectedCategory" class="label">Select Category</label>
-                <div class="select">
-                    <select bind:value={selectedCategory} id="selectedCategory">
-                        {#each categoryList as category}
-                            <option value={category.name}> {category.name} </option>
-                        {/each}
-                    </select>
-                </div>
+                <label for="selectedCategory" class="label"><br>Select Category</label>
             </div>
         </div>
-    </div>
+        <div class="select">
+            <select bind:value={selectedCategory} id="selectedCategory">
+                {#each categoryList as category}
+                    <option value={category.name}> {category.name} </option>
+                {/each}
+            </select>
+        </div>
     <div class="field is-horizontal">
         <div class="field-body">
             <div class="field">
-                <label for="description" class="label">Description</label>
+                <label for="description" class="label"><br>Description</label>
                 <input bind:value={description} id="Description" class="input" type="text" placeholder="Enter description" name="description" />
             </div>
         </div>

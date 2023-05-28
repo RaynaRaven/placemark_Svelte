@@ -5,6 +5,7 @@
     import { goto } from '$app/navigation';
     import { categoryIdStore } from "../stores.js";
 
+
     let categoryName = "";
     let message = "";
 
@@ -67,7 +68,7 @@
     <div class="field is-horizontal">
         <div class="field-body">
             <div class="field">
-                <label for="categoryName" class="label"><br><br> Add Category <br> </label>
+                <label for="categoryName" class="label">Add Category <br> </label>
                 <input bind:value={categoryName} id="CategoryName" class="input" type="text" placeholder="Enter category name" name="categoryName" />
             </div>
         </div>
