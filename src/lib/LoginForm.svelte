@@ -1,6 +1,7 @@
 <script xmlns="http://www.w3.org/1999/html">
     import { goto } from '$app/navigation';
     import { placemarkService } from "../services/placemark-service.js";
+    import { user} from "../stores.js";
 
     let email = '';
     let password = '';
@@ -10,7 +11,7 @@
         console.log(`attempting to log in email: ${email} with password: ${password}`);
         let success = await placemarkService.login(email, password);
         if (success) {
-            goto('/dashboard');
+            goto(`/user/${$user._id}/dashboard`);
         } else {
             email = "";
             password = "";

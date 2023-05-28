@@ -67,8 +67,11 @@ export const placemarkService = {
 
     async addLocation(location) {
         try {
-            const response = await axios.post(this.baseUrl + "/api/categories/" + location.category + "/locations", location);
-            return response.status == 200;
+            const response = await axios.post(this.baseUrl + "/api/categories/" + location.categoryId + "/locations", location);
+            console.log("add resp", response);
+            if (response){
+                return true;
+            }
         } catch (error) {
             return false;
         }
@@ -120,7 +123,7 @@ export const placemarkService = {
     },
 
     async getLocationsByCategoryId(categoryId) {
-        // console.log("req1", categoryId);
+        console.log("req1", categoryId);
         try {
             const response = await axios.get(this.baseUrl + "/api/locations/byCategory", {params: {categoryId }, });
             return response.data;

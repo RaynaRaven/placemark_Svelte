@@ -1,35 +1,18 @@
 <script>
-    import {afterUpdate, onMount} from "svelte";
+    import {afterUpdate, onMount, onDestroy } from "svelte";
     import { placemarkService } from "../services/placemark-service.js";
-    import { categoryIdStore, locationStore } from "../stores.js";
+    import { user, categoryIdStore, locationStore } from "../stores.js";
+    import { page } from "$app/stores";
     import {goto} from "$app/navigation";
 
-    let locationList=[];
+    export let locationList=[];
     //export let locationId = "";
 
     onMount(async () => {
-        const { subscribe } = categoryIdStore;
-        let categoryId;
-        const unsubscribe = subscribe((value) => {
-            categoryId = value.categoryId;
-        });
-        console.log("LOC VAR", categoryId);
+        console.log($page.params.category);
+        locationList = await placemarkService.getLocationsByCategoryId($page.params.category);
+    })
 
-        //store locations in local storage
-        const storedLocationList = localStorage.getItem("locationList");
-        if (storedLocationList) {
-            locationList = JSON.parse(storedLocationList);
-        } else {
-            locationList = await placemarkService.getLocationsByCategoryId(categoryId);
-            localStorage.setItem("locationList", JSON.stringify(locationList));
-        }
-        // console.log("LocList", locationList);
-        unsubscribe();
-    });
-
-    afterUpdate(() => {
-        console.log(locationList);
-    });
     async function openLocation() {
         await goto('/location');
     }
@@ -38,26 +21,6 @@
 
 </script>
 
-<!--<div class="column box has-text-centered">-->
-<!--    <table class="table is-fullwidth">-->
-<!--        <thead>-->
-<!--        <th>Name</th>-->
-<!--        <th>Description</th>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        {#each locationList as location}-->
-<!--            <tr>-->
-<!--                <td>-->
-<!--                    {location.name}-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                    {location.description}-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--        {/each}-->
-<!--        </tbody>-->
-<!--    </table>-->
-<!--</div>-->
 <div class="columns is-multiline">
     {#each locationList as location}
         <div class="column is-one-third">

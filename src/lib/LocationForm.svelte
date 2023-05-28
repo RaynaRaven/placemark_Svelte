@@ -2,15 +2,14 @@
     // @ts-nocheck
     import { onMount, afterUpdate } from "svelte";
     import { placemarkService } from "../services/placemark-service.js";
+    import { user } from "../stores.js";
 
     let categoryList = [];
     let selectedCategory = "";
-
     let locationName = "";
     let latitude = 0;
     let longitude = 0;
     let description = "";
-
     let message = "";
 
     onMount(async () => {
@@ -27,9 +26,7 @@
             message = " Please select category and enter location names"
         }
         const categoryName = selectedCategory;
-        console.log("categoryName: ", categoryName);
         const category = categoryList.find((category) => category.name === categoryName );
-        console.log("Cat found!!!", category, category._id);
         const location = {
             name: locationName,
             description: description,
@@ -37,16 +34,13 @@
             longitude: longitude,
             categoryId: category._id
         };
-        const success = await placemarkService.addLocation(location);
-        console.log("what is in Success??", success);
-        if (success) {
+        const response = await placemarkService.addLocation(location);
+        console.log("what is in Success??", response);
+        if (response) {
             message = `you have added ${location.name} to ${category.name}`;
         } else {
             message = "error - location not added";
-            return;
         }
-        // let locationName;
-        // console.log(`attempting to add location: ${locationName}`);
     }
 
 </script>

@@ -1,13 +1,11 @@
 <script>
-    import { beforeUpdate } from "svelte";
     import Header from '$lib/Header.svelte';
     import Category from "$lib/Category.svelte";
     import MainNavigator from "$lib/MainNavigator.svelte";
     import LocationForm from "$lib/LocationForm.svelte";
     import Map from "$lib/Map.svelte";
-    import {placemarkService} from "../../services/placemark-service.js";
 
-// TODO refactor to move header/nav to layout
+    export const ssr = false;
 </script>
 
 <Header>
@@ -24,6 +22,8 @@
 
     <div class="column">
         <Map />
+        <br>
+        <h1 class="title is-5">Categories</h1>
         <Category/>
     </div>
 </section>

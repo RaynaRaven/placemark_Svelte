@@ -1,6 +1,8 @@
 <script>
     import Header from '$lib/Header.svelte';
     import WelcomeNavigator from "$lib/WelcomeNavigator.svelte";
+
+    export const ssr = false;
 </script>
 
 <Header>

@@ -3,15 +3,14 @@
     import { onMount, afterUpdate } from "svelte";
     import { placemarkService } from "../services/placemark-service.js";
     import { goto } from '$app/navigation';
-    import { categoryIdStore } from "../stores.js";
+    import { user, categoryIdStore } from "../stores.js";
 
 
     let categoryName = "";
     let message = "";
 
     let categoryList = [];
-
-    export let categoryId = "";
+    // export let categoryId = "";
 
     onMount(async () => {
         categoryList = await placemarkService.getCategories();
@@ -38,26 +37,26 @@
         }
     }
 
-    async function openCategory() {
-        // await goto(`/category/${categoryId}/locations`);
-        goto("/category")
-    }
+    // async function openCategory() {
+    //     // await goto(`/category/${categoryId}/locations`);
+    //     goto("/category")
+    // }
 
-    async function deleteCategory() {
+    async function deleteCategory(categoryId) {
         const category = {
             id: categoryId
         }
-        //TODO event handler "are you sure?"
         let success = await placemarkService.deleteCategory(category);
         if (!success) {
             console.log("Cat not deleted");
         } else {
             message = `Category Deleted`;
             categoryList = await placemarkService.getCategories();
+            console.log(categoryList);
         }
     }
 
-
+    //TODO refactor to separate components - CategoryList and CategoryForm
 </script>
 
 <div class="columns is-multiline">
@@ -68,13 +67,16 @@
                     <div class="is-size-5" ><b>{ category.name }</b></div>
                 </div>
                 <div class="buttons is-right">
-                    <button on:click={() => categoryId = category._id}
-                            on:click={() => categoryIdStore.set({
-                            categoryId: category._id
-                            })}
-                            on:click|preventDefault={openCategory} class="button is-link is-light"><i class="fas fa-folder-open"></i></button>
-                    <button on:click={() => categoryId = category._id}
-                            on:click={deleteCategory} class="button is-link is-light"><i class="fas fa-trash"></i></button>
+                    <a href="/user/{$user._id}/category/{category._id}" class="button is-link is-light">
+                        <span class="icon is-small">
+                            <i class="fas fa-folder-open"></i>
+                        </span>
+                    </a>
+                    <button on:click={() => deleteCategory(category._id)} class="button is-link is-light">
+                            <span class="icon is-small">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                    </button>
                 </div>
             </div>
         </div>
